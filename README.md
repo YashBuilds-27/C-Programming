@@ -1,4 +1,4 @@
-#C Programming
+C Programming
 
 A collection of C programs covering fundamental concepts and mini projects.
 
