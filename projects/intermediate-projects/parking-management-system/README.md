@@ -76,16 +76,6 @@ Vehicle found in Two Wheeler Parking at Slot 1
 
 All currently parked vehicles are displayed in a tabular format.
 
-Example:
-
-================ PARKED VEHICLES ================
-Slot       Vehicle Type         Vehicle Number
---------------------------------------------------
-1          Two Wheeler          UP780010
-2          Two Wheeler          UP250021
-1          Four Wheeler         UP320045
---------------------------------------------------
-
 5. Available Slots
 
 The program displays:
