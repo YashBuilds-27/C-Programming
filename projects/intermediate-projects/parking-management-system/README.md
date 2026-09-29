@@ -130,13 +130,6 @@ Linux / macOS
 
 ./parking
 
-📁 Project Structure
-
-Parking-Management-System/
-│
-├── parking.c
-└── README.md
-
 ⚠️ Current Limitations
 
 This is a beginner-level console application, so the data is stored only while the program is running.
@@ -146,20 +139,6 @@ This is a beginner-level console application, so the data is stored only while t
 - Data is lost when the program exits
 - No file/database storage
 - No graphical user interface
-
-🚀 Future Improvements
-
-Possible improvements include:
-
-- [ ] Store parking records in a file
-- [ ] Add entry and exit time
-- [ ] Calculate parking charges
-- [ ] Add date and time
-- [ ] Add vehicle owner information
-- [ ] Use functions to make the code modular
-- [ ] Add admin login
-- [ ] Add file-based permanent storage
-- [ ] Improve slot management after vehicle removal
 
 👨‍💻 Author
 
