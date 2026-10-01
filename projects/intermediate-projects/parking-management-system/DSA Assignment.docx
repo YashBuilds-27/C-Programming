@@ -1,0 +1,245 @@
+DSA ASSIGNMENT
+Q1. Stack Using an Array
+A stack is a linear data structure that follows the LIFO (Last In, First Out) principle. The program below implements PUSH(x), POP(), PEEK(), and DISPLAY() using an array without using a built-in stack library. It also handles Stack Overflow and Stack Underflow.
+C Program
+#include <stdio.h>
+
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push(int x) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow! Stack is full.\n");
+        return;
+    }
+
+    top++;
+    stack[top] = x;
+    printf("%d pushed into the stack.\n", x);
+}
+
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow! Stack is empty.\n");
+        return;
+    }
+
+    printf("%d popped from the stack.\n", stack[top]);
+    top--;
+}
+
+void peek() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+        return;
+    }
+
+    printf("Top element = %d\n", stack[top]);
+}
+
+void display() {
+    int i;
+
+    if (top == -1) {
+        printf("Stack is empty.\n");
+        return;
+    }
+
+    printf("Stack elements: ");
+    for (i = top; i >= 0; i--) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, x;
+
+    while (1) {
+        printf("\n===== STACK MENU =====\n");
+        printf("1. PUSH\n");
+        printf("2. POP\n");
+        printf("3. PEEK\n");
+        printf("4. DISPLAY\n");
+        printf("5. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter element: ");
+                scanf("%d", &x);
+                push(x);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+Explanation
+•	PUSH(x): Checks whether top == MAX - 1. If true, the stack is full and Stack Overflow occurs. Otherwise, top is increased and x is inserted.
+•	POP(): Checks whether top == -1. If true, the stack is empty and Stack Underflow occurs. Otherwise, the top element is removed and top is decreased.
+•	PEEK(): Displays the element at the top without removing it.
+•	DISPLAY(): Traverses the stack from top to bottom and displays all elements.
+Time and Space Complexity
+Operation	Time Complexity	Reason
+PUSH(x)	O(1)	Only top is updated and one element is inserted.
+POP()	O(1)	Only the top element is removed and top is updated.
+PEEK()	O(1)	Only the top element is accessed.
+DISPLAY()	O(n)	Every element may need to be visited.
+Space Complexity: O(n), where n is the fixed capacity of the array. The stack uses an array of MAX elements. The extra space used by individual operations is O(1), excluding the array itself.
+Fixed Stack Size and Overflow
+When the stack has a fixed capacity, it can store only that many elements. For example, if MAX = 5, at most five elements can be stored. If the user tries to insert a sixth element, there is no free position in the array. The program therefore reports Stack Overflow and does not insert the new element.
+Q2. Circular Queue Using an Array
+A circular queue is a FIFO (First In, First Out) data structure in which the last position of the array is logically connected to the first position. This allows unused positions at the beginning of the array to be reused.
+C Program
+#include <stdio.h>
+
+#define MAX 5
+
+int queue[MAX];
+int front = -1;
+int rear = -1;
+
+void enqueue(int x) {
+    if ((rear + 1) % MAX == front) {
+        printf("Queue Overflow! Queue is full.\n");
+        return;
+    }
+
+    if (front == -1) {
+        front = 0;
+    }
+
+    rear = (rear + 1) % MAX;
+    queue[rear] = x;
+
+    printf("%d inserted into the queue.\n", x);
+}
+
+void dequeue() {
+    if (front == -1) {
+        printf("Queue Underflow! Queue is empty.\n");
+        return;
+    }
+
+    printf("%d removed from the queue.\n", queue[front]);
+
+    if (front == rear) {
+        front = -1;
+        rear = -1;
+    } else {
+        front = (front + 1) % MAX;
+    }
+}
+
+void showFront() {
+    if (front == -1) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    printf("Front element = %d\n", queue[front]);
+}
+
+void display() {
+    int i;
+
+    if (front == -1) {
+        printf("Queue is empty.\n");
+        return;
+    }
+
+    printf("Queue elements: ");
+    i = front;
+
+    while (1) {
+        printf("%d ", queue[i]);
+
+        if (i == rear) {
+            break;
+        }
+
+        i = (i + 1) % MAX;
+    }
+
+    printf("\n");
+}
+
+int main() {
+    int choice, x;
+
+    while (1) {
+        printf("\n===== CIRCULAR QUEUE MENU =====\n");
+        printf("1. ENQUEUE\n");
+        printf("2. DEQUEUE\n");
+        printf("3. FRONT\n");
+        printf("4. DISPLAY\n");
+        printf("5. EXIT\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter element: ");
+                scanf("%d", &x);
+                enqueue(x);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                showFront();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+How Full and Empty Conditions Are Distinguished
+•	Empty queue: front == -1.
+•	Full queue: (rear + 1) % MAX == front.
+•	After removing the last element, both front and rear are reset to -1.
+•	The modulo operator (%) makes rear and front wrap around to the beginning of the array.
+Circular Queue vs. Simple Linear Queue
+Point	Circular Queue	Simple Linear Queue
+Memory utilization	Reuses positions freed at the beginning by wrapping around.	Freed positions at the beginning generally cannot be reused once rear reaches the last index.
+ENQUEUE	O(1)	O(1), when a free rear position is available.
+DEQUEUE	O(1)	O(1), when front is simply advanced.
+Space complexity	O(n), for an array of capacity n.	O(n), for an array of capacity n.
+1. Why a Circular Queue Provides Better Memory Utilization
+A circular queue treats the array as a circular structure. When elements are removed from the front, the empty positions can be reused by a later ENQUEUE operation. Therefore, the array space is used more efficiently than in a simple linear queue.
+2. Time Complexity of ENQUEUE and DEQUEUE
+Both ENQUEUE and DEQUEUE take O(1) time because each operation changes only a small, constant number of variables and array positions. The modulo operation is also constant time.
+3. Space Complexity of the Queue
+The space complexity is O(n), where n is the fixed capacity of the queue. The queue stores its elements inside an array of size n.
+4. Problem in a Linear Queue When REAR Reaches the Last Index
+Suppose a linear queue has five positions and elements at the beginning are removed. The positions at the beginning become empty, but REAR may eventually reach the last index. A normal linear queue cannot move REAR back to those earlier positions without shifting elements or using another mechanism. As a result, the queue may appear full even though unused positions exist at the beginning. This is commonly called wasted space or false overflow. A circular queue solves this by wrapping REAR around to the beginning.
